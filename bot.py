@@ -33,6 +33,7 @@ def handle_gpt4_message(message: Message):
     print(f"Content {message.text}")
     try:
         answer = gpt4(message.text)
+        bot.reply_to(message, answer)
     except Exception as e:
         print(e)
         bot.reply_to(message, "Failed to request. \nTry one more time.")
