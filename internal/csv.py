@@ -35,7 +35,6 @@ def elections(data: BytesIO) -> Optional[BytesIO]:
             group_data.to_excel(
                 writer, sheet_name=str(year), index=False, float_format="%.2f"
             )
-    excel_writer.save()
     excel_buffer.seek(0)
     return excel_buffer
 
@@ -46,6 +45,5 @@ def csv2xslx(data: BytesIO) -> BytesIO:
     excel_writer = pd.ExcelWriter(excel_buffer, engine="xlsxwriter")
     with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
         pd.to_excel(writer, index=False)
-    excel_writer.save()
     excel_buffer.seek(0)
     return excel_buffer

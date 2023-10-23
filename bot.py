@@ -66,7 +66,7 @@ def handle_document(message: Message):
         responce.name = name+'.xlsx'
         
         # Отправка файла Excel обратно пользователю
-        bot.send_document(message.chat.id, data=responce, filename='output.xlsx')
+        bot.send_document(message.chat.id, document=responce)
     else:
         bot.send_message(message.chat.id, "Пожалуйста, отправьте CSV-файл.")
 

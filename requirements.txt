@@ -1,2 +1,5 @@
 SpeechRecognition
 pyTelegramBotAPI
+xlsxwriter
+pandas
+g4f
