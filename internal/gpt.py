@@ -1,7 +1,7 @@
 import g4f
 import os
 
-PROXY = 'http://proxy.server:3128'
+
 CLOUD = os.getenv('CLOUD')
 g4f.logging = True  # enable logging
 g4f.check_version = False  # Disable automatic version checking
@@ -17,12 +17,12 @@ def _gpt(input: str, mdl)->str:
     if CLOUD == "PYTHONANYWHERE":
         return g4f.ChatCompletion.create(
                 model=mdl,
-                provider=g4f.Provider.Aichat,
+                provider=g4f.Provider.Bing,
                 messages=[{"role": "user", "content": input}],
-                proxy=PROXY
+                proxy=os.getenv('http_proxy')
             )
     return g4f.ChatCompletion.create(
                 model=mdl,
-                provider=g4f.Provider.Aichat,
+                provider=g4f.Provider.Bing,
                 messages=[{"role": "user", "content": input}],
             )
