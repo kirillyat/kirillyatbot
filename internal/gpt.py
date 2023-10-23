@@ -14,7 +14,7 @@ def gpt4(input: str)->str:
 
 
 def _gpt(input: str, mdl)->str:
-    if CLOUD == "PYTHONANYWHERE"
+    if CLOUD == "PYTHONANYWHERE":
         return g4f.ChatCompletion.create(
                 model=mdl,
                 provider=g4f.Provider.Aichat,
