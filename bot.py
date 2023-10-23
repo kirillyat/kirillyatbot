@@ -60,7 +60,7 @@ def handle_document(message: Message):
     if message.document.mime_type == 'text/csv':
         file_info = bot.get_file(message.document.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
-        name, _ = utils.file_name_type(message.document)
+        name, _ = utils.file_name_type(message.document.file_name)
         # Чтение CSV-файла и преобразование в формат Excel
         responce = elections(BytesIO(downloaded_file))
         responce.name = name+'.xlsx'
