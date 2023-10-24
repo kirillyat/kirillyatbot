@@ -1,5 +1,5 @@
 from telebot.types import Message
-from internal.gpt import gpt4
+from internal.gpt import gpt4, bard
 from internal.csv import elections
 from internal import utils
 import telebot
@@ -37,6 +37,18 @@ def handle_gpt4_message(message: Message):
     except Exception as e:
         print(e)
         bot.reply_to(message, "Failed to request. \nTry one more time.")
+
+@bot.message_handler(commands=["bard"])
+def handle_bard_message(message: Message):
+    print(f"Handle request from {message.from_user.username}")
+    print(f"Content {message.text}")
+    try:
+        answer = bard(message.text)
+        bot.reply_to(message, answer)
+    except Exception as e:
+        print(e)
+        bot.reply_to(message, "Failed to request. \nTry one more time.")
+
 
 @bot.message_handler(commands=["upper"])
 def handle_upper_message(message: Message):

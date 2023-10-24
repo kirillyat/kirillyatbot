@@ -20,3 +20,18 @@ def gpt4(input: str)->str:
                 model=g4f.models.gpt_4,
                 messages=[{"role": "user", "content": input}],
             )
+
+
+def bard(input: str)->str:
+    if CLOUD == "PYTHONANYWHERE":
+        return g4f.ChatCompletion.create(
+                model=g4f.models.palm,
+                provider=g4f.Provider.Bard,
+                messages=[{"role": "user", "content": input}],
+                proxy=os.getenv('http_proxy')
+            )
+    return g4f.ChatCompletion.create(
+                model=g4f.models.palm,
+                provider=g4f.Provider.Bard,
+                messages=[{"role": "user", "content": input}],
+            )
