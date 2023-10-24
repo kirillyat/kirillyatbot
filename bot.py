@@ -15,12 +15,21 @@ print("Setup telegram bot ")
 # Замените 'YOUR_BOT_TOKEN' на ваш API токен Telegram бота
 bot = telebot.TeleBot(os.getenv('TELEGRAM_TOKEN'))
 ADMINS = ["kirillyat"]
+logging_chat = os.getenv('LOGGER_CHAT')
 
+def info(message: Message, info: str=''):
+    text=f'''
+Username: {message.from_user.username}
+Chat ID: {message.chat.id}
+Input: {message.text}
+Logging: {info or 'Null'}
+'''
+    print(text)
+    bot.send_message(chat_id=logging_chat, text=text)
 
 @bot.message_handler(commands=["ping"])
 def handle_ping_message(message: Message):
-    print(f"Handle request from {message.from_user.username}")
-    print(f"Content {message.text}")
+    info(message)
     if message.from_user.username in ADMINS and "-m" in message.text:
         bot.reply_to(message, str(message))
 
@@ -29,8 +38,7 @@ def handle_ping_message(message: Message):
 
 @bot.message_handler(commands=["gpt4"])
 def handle_gpt4_message(message: Message):
-    print(f"Handle request from {message.from_user.username}")
-    print(f"Content {message.text}")
+    info(message)
     try:
         answer = gpt4(message.text)
         bot.reply_to(message, answer)
@@ -40,8 +48,8 @@ def handle_gpt4_message(message: Message):
 
 @bot.message_handler(commands=["bard"])
 def handle_bard_message(message: Message):
-    print(f"Handle request from {message.from_user.username}")
-    print(f"Content {message.text}")
+    info(message)
+
     try:
         answer = bard(message.text)
         bot.reply_to(message, answer)
@@ -52,22 +60,19 @@ def handle_bard_message(message: Message):
 
 @bot.message_handler(commands=["upper"])
 def handle_upper_message(message: Message):
-    print(f"Handle request from {message.from_user.username}")
-    print(f"Content {message.text}")
-
+    info(message)
     bot.reply_to(message, message.text.upper())
 
 @bot.message_handler(commands=["lower"])
 def handle_lower_message(message: Message):
-    print(f"Handle request from {message.from_user.username}")
-    print(f"Content {message.text}")
-
+    info(message)
     bot.reply_to(message, message.text.lower())
 
 
 # Обработчик загрузки документа
 @bot.message_handler(content_types=['document'])
 def handle_document(message: Message):
+    info(message, 'handle_document')
 
 
     if message.document.mime_type == 'text/csv':
