@@ -66,6 +66,11 @@ def handle_upper_message(message: Message):
     info(message)
     bot.reply_to(message, message.text.upper())
 
+@bot.message_handler(commands=["send"])
+def handle_send_message(message: Message):
+    info(message)
+    tokens = message.text.split()
+    bot.send_message(chat_id=tokens[1], text=" ".join(tokens[2:]))
 
 @bot.message_handler(commands=["lower"])
 def handle_lower_message(message: Message):
