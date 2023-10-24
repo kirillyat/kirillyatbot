@@ -79,13 +79,14 @@ def handle_lower_message(message: Message):
 
 @bot.message_handler(content_types=["text"])
 def handle_text_message(message: Message):
-    info(message)
-    try:
-        answer = gpt4(message.text)
-        bot.reply_to(message, answer)
-    except Exception as e:
-        print(e)
-        bot.reply_to(message, "Failed to request. \nTry one more time.")
+    if message.chat.type == 'private':
+        info(message)
+        try:
+            answer = gpt4(message.text)
+            bot.reply_to(message, answer)
+        except Exception as e:
+            print(e)
+            bot.reply_to(message, "Failed to request. \nTry one more time.")
 
 
 # Обработчик загрузки документа
